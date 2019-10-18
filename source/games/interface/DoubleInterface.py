@@ -79,6 +79,9 @@ class DoubleInterface:
                 peer_id=peer_id)
             return
 
+        if value < 0:
+            value *= -1
+
         for game in StaticData.current_games:
             if game['peer_id'] == peer_id:
                 for user in game['class'].bets:
