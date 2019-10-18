@@ -56,7 +56,7 @@ class Double:
         return {'number': self.number, 'bets': self.bets, 'won': self.who_won()}
 
     def game(self):
-        time.sleep(30)
+        time.sleep(60)
 
     def balance_changes(self):
         if self.bets:
