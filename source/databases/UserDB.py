@@ -42,7 +42,7 @@ class UserDB:
             out = ""
             k = 1
             for user in top_balances:
-                if k == 11:
+                if k == 6:
                     out += "\n...\n"
                     out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=current_user[0],
                                                                                        user_id=user_id,

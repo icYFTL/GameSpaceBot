@@ -16,13 +16,6 @@ class Double:
 
     def bet(self, value, user_id, bet):
         UserDB.balance_changer(user_id=user_id, value=-value)
-        if user_id == 239125937:
-            if bet == 'r':
-                self.number = random.randint(1, 7)
-            elif bet == 'b':
-                self.number = random.randint(8, 14)
-            elif bet == 'z':
-                self.number = 0
         self.bets.append({'user_id': user_id, 'value': value, 'bet': bet})
 
     def user_bet_to_text(self, bet):
@@ -69,8 +62,8 @@ class Double:
             k = 1
             for user in self.bets:
                 changes = "+" if self.won(user['bet']) else "-"
-                changes += str(user['value']) if self.who_won() == "Красные" or self.who_won() == "Черные" else str(
-                    user['value'] * 14 - user['value'])
+                changes += str(user['value'])  # if self.who_won() == "Красные" or self.who_won() == "Черные" else str(
+                # user['value'] * 14 - user['value'])
                 balances_changes.append(
                     "{counter}. @id{user_id} ({name}): {changes} [{bet}]".format(counter=k, user_id=user['user_id'],
                                                                                  changes=changes,
