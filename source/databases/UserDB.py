@@ -41,15 +41,20 @@ class UserDB:
 
             out = ""
             k = 1
+            done = False
             for user in top_balances:
-                if k == 6:
-                    out += "\n...\n"
+                if k == 6 and not done:
+                    out += "...\n"
                     out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=current_user[0],
                                                                                        user_id=user_id,
                                                                                        username=StaticMethods.get_username(
                                                                                            user_id),
                                                                                        balance=current_user[1])
                     break
+                elif k == 6:
+                    break
+                if user['user_id'] == user_id:
+                    done = True
                 out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=k, user_id=user['user_id'],
                                                                                    username=StaticMethods.get_username(
                                                                                        user['user_id']),
