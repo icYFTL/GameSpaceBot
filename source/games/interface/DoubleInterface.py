@@ -40,7 +40,8 @@ class DoubleInterface:
                 if i == 'z' or i == 'r' or i == 'b':
                     args.update({'bet': i})
                 try:
-                    args.update({'value': int(i)})
+                    if int(i) > 0:
+                        args.update({'value': int(i)})
                 except:
                     pass
             if len(args.keys()) > 1:
@@ -78,9 +79,6 @@ class DoubleInterface:
                                                                                         user_id)),
                 peer_id=peer_id)
             return
-
-        if value < 0:
-            value *= -1
 
         for game in StaticData.current_games:
             if game['peer_id'] == peer_id:
