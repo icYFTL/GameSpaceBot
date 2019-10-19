@@ -86,7 +86,7 @@ class RussianRouletteInterface:
 
         for game in StaticData.current_games:
             if game['peer_id'] == peer_id:
-                for user in game['class'].bets:
+                for user in game['class'].members:
                     if user['user_id'] == user_id:
                         vk.message_send(peer_id=peer_id,
                                         message="@id{user_id} ({name}), Вы уже в игре!".format(user_id=user_id,
@@ -96,7 +96,7 @@ class RussianRouletteInterface:
 
         for game in StaticData.current_games:
             if game['peer_id'] == peer_id:
-                game['class'].bet(user_id=user_id)
+                game['class'].add_member(user_id=user_id)
                 vk.message_send(message="@id{user_id} ({name}), Вы в ИГРЕ!".format(user_id=user_id,
                                                                                    name=StaticMethods.get_username(
                                                                                        user_id)),
