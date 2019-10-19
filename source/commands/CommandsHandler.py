@@ -1,4 +1,3 @@
-# Game Interfaces
 # Other
 from threading import Thread
 

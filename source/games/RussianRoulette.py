@@ -35,19 +35,34 @@ class RussianRoulette:
             balances_changes = []
             k = 1
 
-            for user in self.members:
-                if user['number'] != self.number:
-                    UserDB.balance_changer(user_id=user['user_id'],
-                                           static_value=user['value'] + killed['value'] // len(self.members))
-                    changes = f"+ {killed['value'] // len(self.members)}"
-                else:
-                    changes = f"- {killed['value']}"
-                balances_changes.append(
-                    "{counter}. @id{user_id} ({name}): {changes}".format(counter=k, user_id=user['user_id'],
-                                                                         changes=changes,
-                                                                         name=StaticMethods.get_username(
-                                                                             user['user_id']),
-                                                                         ))
-                k += 1
+            if len(self.members) == 1:
+                for user in self.members:
+                    if user['number'] != self.number:
+                        UserDB.balance_changer(user_id=user['user_id'],
+                                               static_value=user['value'] + killed['value'])
+                        changes = f"+ {killed['value']}"
+                    else:
+                        changes = f"- {killed['value']}"
+                    balances_changes.append(
+                        "{counter}. @id{user_id} ({name}): {changes}".format(counter=k, user_id=user['user_id'],
+                                                                             changes=changes,
+                                                                             name=StaticMethods.get_username(
+                                                                                 user['user_id']),
+                                                                             ))
+            else:
+                for user in self.members:
+                    if user['number'] != self.number:
+                        UserDB.balance_changer(user_id=user['user_id'],
+                                               static_value=user['value'] + killed['value'] // len(self.members) - 1)
+                        changes = f"+ {killed['value'] // len(self.members) - 1}"
+                    else:
+                        changes = f"- {killed['value']}"
+                    balances_changes.append(
+                        "{counter}. @id{user_id} ({name}): {changes}".format(counter=k, user_id=user['user_id'],
+                                                                             changes=changes,
+                                                                             name=StaticMethods.get_username(
+                                                                                 user['user_id']),
+                                                                             ))
+                    k += 1
             LogWork.game_log('\n'.join(balances_changes), self.game_id)
             return balances_changes
