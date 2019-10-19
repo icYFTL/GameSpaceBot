@@ -24,10 +24,10 @@ class CommandsHandler:
         self.vk = BotAPI()
 
     def identify_comma(self, comma):
-        if comma == '/double':
+        if comma.startswith('/double'):
             new_game = Thread(target=DoubleInterface.start, args=(self.peer_id,))
             new_game.start()
-        elif comma == '/balance':
+        elif comma.startswith('/balance'):
             BalanceInterface.get(self.user_id, self.peer_id)
         elif '/bet' in comma:
             game = GameInterface.get_game(self.peer_id)
@@ -35,20 +35,20 @@ class CommandsHandler:
                 NoGameInterface.init(self.peer_id, self.user_id)
             else:
                 game['interface'].bet(self.peer_id, self.user_id, comma)
-        elif comma == '/help':
+        elif comma.startswith('/help'):
             HelpInterface.init(self.peer_id, self.user_id)
-        elif comma == '/reset':
+        elif comma.startswith('/reset'):
             ResetInterface.init(self.user_id, self.peer_id)
-        elif comma == '/doubleh':
+        elif comma.startswith('/doubleh'):
             DoubleHelpInterface.init(self.peer_id, self.user_id)
-        elif comma == '/rrh':
+        elif comma.startswith('/rrh'):
             RussianRouletteHelpInterface.init(self.peer_id, self.user_id)
-        elif comma == '/top':
+        elif comma.startswith('/top'):
             GlobalTopInterface.init(self.peer_id, self.user_id)
-        elif comma == '/rr':
+        elif comma.startswith('/rr'):
             new_game = Thread(target=RussianRouletteInterface.start, args=(self.peer_id,))
             new_game.start()
-        elif comma == '/rp':
+        elif comma.startswith('/rp'):
             game = GameInterface.get_game(self.peer_id)
             if not game:
                 NoGameInterface.init(self.peer_id, self.user_id)

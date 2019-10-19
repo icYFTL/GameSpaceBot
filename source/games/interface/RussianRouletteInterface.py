@@ -53,7 +53,7 @@ class RussianRouletteInterface:
                 break
 
         end_message = f"""Игра #{current_game['game_id']} завершена!\n@id{killed} ({StaticMethods.get_username(
-            killed)}) был убит!\nЗагаданное число: {status}."""
+            killed['user_id'])}) был убит!\nЗагаданное число: {status}."""
 
         vk.message_send(
             message=end_message, peer_id=peer_id)
