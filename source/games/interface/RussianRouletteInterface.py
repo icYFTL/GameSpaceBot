@@ -19,7 +19,7 @@ class RussianRouletteInterface:
                 vk.message_send(peer_id=peer_id, message="Игра уже началась!")
                 return
 
-        vk.message_send(message="Игра началась.\nВ течении 30 секунд вы можете заходить в игру.\nПример:(/rp)",
+        vk.message_send(message="Игра началась.\nВ течении 1 минуты вы можете заходить в игру.\nПример:(/rp)",
                         peer_id=peer_id)
 
         game_id = GameDB.add_game('russian_roulette', peer_id)
