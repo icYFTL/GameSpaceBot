@@ -40,18 +40,14 @@ class UserDB:
         conn, cursor = data[0], data[1]
         cb = UserDB.getter(user_id)['balance']
         time = StaticMethods.get_time().strftime('%D %T') if not time else time
-        cursor.execute(
-            """UPDATE userdata SET time="{last_balance_update}" WHERE user_id={user_id}""".format(
-                last_balance_update=time,
-                user_id=user_id))
+        cursor.execute(f'UPDATE userdata SET time="{time}" WHERE user_id={user_id}')
         conn.commit()
 
     @staticmethod
     def getter(user_id):
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
-        data = cursor.execute(
-            """SELECT * FROM userdata WHERE user_id={}""".format(user_id)).fetchall()
+        data = cursor.execute(f'SELECT * FROM userdata WHERE user_id={user_id}').fetchall()
         data = list(data[0])
         return {'user_id': data[1], 'balance': data[2], 'last_balance_update': data[3]}
 
@@ -60,16 +56,15 @@ class UserDB:
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
         cb = UserDB.getter(user_id)['balance']
-        cursor.execute(
-            """UPDATE userdata SET balance={balance} WHERE user_id={user_id}""".format(
-                balance=cb + value if value else static_value,
-                user_id=user_id))
+        cursor.execute('UPDATE userdata SET balance={balance} WHERE user_id={user_id}'.format(
+            balance=cb + value if value else static_value,
+            user_id=user_id))
         conn.commit()
 
     @staticmethod
     def user_exists(user_id):
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
-        if cursor.execute("""SELECT * FROM userdata WHERE user_id={}""".format(user_id)).fetchall():
+        if cursor.execute(f'SELECT * FROM userdata WHERE user_id={user_id}').fetchall():
             return True
         return False

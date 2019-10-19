@@ -70,5 +70,5 @@ class Double:
                                                                                  bet=self.user_bet_to_text(
                                                                                      user['bet'])))
                 k += 1
-            LogWork.game_log(balances_changes, self.game_id)
+            LogWork.game_log('\n'.join(balances_changes), self.game_id)
             return balances_changes

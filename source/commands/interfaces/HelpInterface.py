@@ -7,15 +7,10 @@ class HelpInterface:
     def init(peer_id, user_id):
         vk = BotAPI()
         vk.message_send(
-            message="""@id{user_id} ({username}), пока что есть игра double.
-Чтобы начать игру double - наберите /double.
-Сделать ставку - /bet (количество игровой валюты) (z/r/b)
-
-(z - Zero - Ноль - Зеленые)
-(r - Red - 1:7 - Красные)
-(b - Black - 8:14 - Черные)
-
-Пример: /bet 100 z
+            message="""@id{user_id} ({username}),
+GameSpaceBot умеет играть в:
+• Double (help - /doubleh)
+• Russian Roulette (help - /rrh)
 
 По умолчанию - у всех новых игроков по 1000$ монет игрового баланса.
 
