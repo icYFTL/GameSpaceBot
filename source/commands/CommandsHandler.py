@@ -33,7 +33,9 @@ class CommandsHandler:
             game = GameInterface.get_game(self.peer_id)
             if not game:
                 NoGameInterface.init(self.peer_id, self.user_id)
-            elif game['game'] == 'double':
+            elif game['game'] != 'double':
+                NoGameInterface.init(self.peer_id, self.user_id)
+            else:
                 game['interface'].bet(self.peer_id, self.user_id, comma)
         elif comma.startswith('/help'):
             HelpInterface.init(self.peer_id, self.user_id)
