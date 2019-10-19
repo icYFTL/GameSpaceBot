@@ -13,55 +13,26 @@ class UserDB:
             return
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
-        cursor.execute("""INSERT INTO userdata (user_id, last_balance_update)
-                          VALUES ({}, "{}")""".format(user_id, StaticMethods.get_time().strftime('%D %T')))
+        cursor.execute('INSERT INTO userdata (user_id, last_balance_update) VALUES ({}, "{}")'.format(user_id,
+                                                                                                      StaticMethods.get_time().strftime(
+                                                                                                          '%D %T')))
         conn.commit()
 
     @staticmethod
     def get_user_by_balance(user_id):
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
-        data = cursor.execute(
-            """SELECT user_id,balance FROM userdata ORDER BY balance DESC""").fetchall()
+        data = cursor.execute('SELECT user_id,balance FROM userdata ORDER BY balance DESC').fetchall()
         for i in range(len(data)):
             if data[i][0] == user_id:
                 return [i + 1, data[i][1]]
 
     @staticmethod
-    def get_top_balances(user_id):
+    def get_top_balances():
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
-        data = cursor.execute(
-            """SELECT user_id,balance FROM userdata ORDER BY balance DESC""").fetchall()
-        current_user = UserDB.get_user_by_balance(user_id)
-        if data:
-            top_balances = []
-            for balance in data:
-                top_balances.append({'user_id': balance[0], 'balance': str(balance[1]) + '$'})
-
-            out = ""
-            k = 1
-            done = False
-            for user in top_balances:
-                if k == 6 and not done:
-                    out += "...\n"
-                    out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=current_user[0],
-                                                                                       user_id=user_id,
-                                                                                       username=StaticMethods.get_username(
-                                                                                           user_id),
-                                                                                       balance=current_user[1])
-                    break
-                elif k == 6:
-                    break
-                if user['user_id'] == user_id:
-                    done = True
-                out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=k, user_id=user['user_id'],
-                                                                                   username=StaticMethods.get_username(
-                                                                                       user['user_id']),
-                                                                                   balance=user['balance'])
-                k += 1
-            return out
-        return False
+        data = cursor.execute('SELECT user_id,balance FROM userdata ORDER BY balance DESC').fetchall()
+        return data
 
     @staticmethod
     def change_time(user_id, time=None):

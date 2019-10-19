@@ -2,17 +2,16 @@ import random
 import time
 
 from source.databases.UserDB import UserDB
+from source.logger.LogWork import LogWork
 from source.static.StaticMethods import StaticMethods
 
 
 class Double:
-    def __init__(self, peer_id):
+    def __init__(self, peer_id, game_id):
         self.number = random.randint(0, 14)
         self.peer_id = peer_id
         self.bets = []
-
-    def init(self):
-        self.game()
+        self.game_id = game_id
 
     def bet(self, value, user_id, bet):
         UserDB.balance_changer(user_id=user_id, value=-value)
@@ -62,8 +61,7 @@ class Double:
             k = 1
             for user in self.bets:
                 changes = "+" if self.won(user['bet']) else "-"
-                changes += str(user['value'])  # if self.who_won() == "Красные" or self.who_won() == "Черные" else str(
-                # user['value'] * 14 - user['value'])
+                changes += str(user['value'])
                 balances_changes.append(
                     "{counter}. @id{user_id} ({name}): {changes} [{bet}]".format(counter=k, user_id=user['user_id'],
                                                                                  changes=changes,
@@ -72,4 +70,5 @@ class Double:
                                                                                  bet=self.user_bet_to_text(
                                                                                      user['bet'])))
                 k += 1
+            LogWork.game_log(balances_changes, self.game_id)
             return balances_changes

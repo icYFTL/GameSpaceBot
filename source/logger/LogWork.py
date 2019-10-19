@@ -11,6 +11,10 @@ class LogWork:
             os.mkdir("source/logger/logs/")
         except:
             pass
+        try:
+            os.mkdir("source/logger/logs/game_logs/")
+        except:
+            pass
         logging.basicConfig(filename="source/logger/logs/default.log", level=logging.INFO)
 
     @staticmethod
@@ -36,3 +40,10 @@ class LogWork:
         LogWork.base_init()
         logging.fatal(message)
         hues.error("Fatal: " + message)
+
+    @staticmethod
+    def game_log(message, game_id):
+        LogWork.base_init()
+        f = open(f'source/logger/logs/game_logs/{game_id}.txt', 'a', encoding='utf-8')
+        f.write(message)
+        f.close()

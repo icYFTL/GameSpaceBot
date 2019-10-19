@@ -21,11 +21,14 @@ class DoubleInterface:
 
         vk.message_send(message="Игра началась.\nВ течении 60 секунд вы можете ставить.\nПример:(/bet 100 z)",
                         peer_id=peer_id)
-        game = Double(peer_id)
+
         game_id = GameDB.add_game('double', peer_id)
+        game = Double(peer_id, game_id)
+
         StaticData.current_games.append(
             {'game_id': game_id, 'game': 'double', 'peer_id': peer_id, 'class': game,
              'interface': DoubleInterface})
+
         LogWork.log("Game #{game_id} has been started at {time}".format(game_id=game_id,
                                                                         time=StaticMethods.get_time().strftime(
                                                                             "%D %T")))
@@ -83,7 +86,7 @@ class DoubleInterface:
         for game in StaticData.current_games:
             if game['peer_id'] == peer_id:
                 for user in game['class'].bets:
-                    if user['user_id'] == user_id:
+                    if user['user_id'] == user_id and user['bet'] != 'z':
                         vk.message_send(peer_id=peer_id,
                                         message="@id{user_id} ({name}), вы уже сделали ставку!".format(user_id=user_id,
                                                                                                        name=StaticMethods.get_username(
@@ -136,7 +139,7 @@ class DoubleInterface:
         vk = BotAPI()
 
         current_game = GameInterface.get_game(peer_id)
-        current_game['class'].init()
+        current_game['class'].game()
 
         GameDB.status_changer(current_game['game_id'], "post game")
         LogWork.log("Post game for Game #{game_id} has been initiated at {time}".format(game_id=current_game['game_id'],
@@ -148,11 +151,12 @@ class DoubleInterface:
 
         time.sleep(20)
 
-        vk.message_send(
-            message="Игра #{game_id} завершена!\n{team} победили!\nЗагаданное число: {number}.".format(
-                game_id=current_game['game_id'],
-                number=status['number'], team=status['won']), peer_id=peer_id)
+        end_message = f"""Игра #{current_game['game_id']} завершена!\n{status['won']} победили!\nЗагаданное число: {
+        status['number']}."""
 
+        vk.message_send(
+            message=end_message, peer_id=peer_id)
+        LogWork.game_log(end_message, current_game['game_id'])
         time.sleep(1)
 
         balances_changes = current_game['class'].balance_changes()

@@ -9,8 +9,7 @@ from source.commands.interfaces.NoGameInterface import NoGameInterface
 from source.commands.interfaces.ResetInterface import ResetInterface
 from source.games.interface.DoubleInterface import DoubleInterface
 from source.static.GameInterface import GameInterface
-# Static
-from source.static.StaticMethods import StaticMethods
+# Other
 from source.vkapi.BotAPI import BotAPI
 
 
@@ -40,7 +39,4 @@ class CommandsHandler:
         elif comma == '/top':
             GlobalTopInterface.init(self.peer_id, self.user_id)
         else:
-            self.vk.message_send(message="@id{user_id} ({username}), нет такой команды.".format(user_id=self.user_id,
-                                                                                                username=StaticMethods.get_username(
-                                                                                                    self.user_id)),
-                                 peer_id=self.peer_id)
+            return
