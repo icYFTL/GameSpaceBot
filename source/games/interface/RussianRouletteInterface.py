@@ -64,21 +64,21 @@ class RussianRouletteInterface:
                 message=end_message, peer_id=peer_id)
             LogWork.game_log(end_message, current_game['game_id'])
             RussianRouletteInterface.balance_recover(current_game)
-            return
 
-        end_message = f"""Игра #{current_game['game_id']} завершена!\n@id{killed[
-            'user_id']} ({StaticMethods.get_username(
-            killed['user_id'])}) был убит!\nЗагаданное число: {status}."""
+        else:
+            end_message = f"""Игра #{current_game['game_id']} завершена!\n@id{killed[
+                'user_id']} ({StaticMethods.get_username(
+                killed['user_id'])}) был убит!\nЗагаданное число: {status}."""
 
-        vk.message_send(
-            message=end_message, peer_id=peer_id)
-        LogWork.game_log(end_message, current_game['game_id'])
-        time.sleep(1)
+            vk.message_send(
+                message=end_message, peer_id=peer_id)
+            LogWork.game_log(end_message, current_game['game_id'])
+            time.sleep(1)
 
-        balances_changes = current_game['class'].balance_changes()
+            balances_changes = current_game['class'].balance_changes()
 
-        if balances_changes:
-            vk.message_send(message="Изменения балансов:\n" + '\n'.join(balances_changes), peer_id=peer_id)
+            if balances_changes:
+                vk.message_send(message="Изменения балансов:\n" + '\n'.join(balances_changes), peer_id=peer_id)
 
         for game in range(len(StaticData.current_games)):
             if StaticData.current_games[game]['peer_id'] == peer_id:
