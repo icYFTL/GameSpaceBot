@@ -40,9 +40,9 @@ class CommandsHandler:
         elif comma == '/reset':
             ResetInterface.init(self.user_id, self.peer_id)
         elif comma == '/doubleh':
-            DoubleHelpInterface.init(self.user_id, self.peer_id)
+            DoubleHelpInterface.init(self.peer_id, self.user_id)
         elif comma == '/rrh':
-            RussianRouletteHelpInterface.init(self.user_id, self.peer_id)
+            RussianRouletteHelpInterface.init(self.peer_id, self.user_id)
         elif comma == '/top':
             GlobalTopInterface.init(self.peer_id, self.user_id)
         elif comma == '/rr':
