@@ -36,6 +36,11 @@ class RussianRouletteInterface:
         RussianRouletteInterface.end_game(peer_id, game.game())
 
     @staticmethod
+    def balance_recover(game):
+        for user in game['class'].members:
+            UserDB.balance_changer(user_id=user['user_id'], static_value=user['value'])
+
+    @staticmethod
     def end_game(peer_id, status):
         vk = BotAPI()
 
@@ -51,6 +56,10 @@ class RussianRouletteInterface:
             if user['number'] == status:
                 killed = user
                 break
+
+        if killed == None:
+            f"""Игра #{current_game['game_id']} завершена!\nНикто не был убит!\nЗагаданное число: {status}."""
+            RussianRouletteInterface.balance_recover(current_game)
 
         end_message = f"""Игра #{current_game['game_id']} завершена!\n@id{killed} ({StaticMethods.get_username(
             killed['user_id'])}) был убит!\nЗагаданное число: {status}."""
@@ -96,8 +105,15 @@ class RussianRouletteInterface:
 
         for game in StaticData.current_games:
             if game['peer_id'] == peer_id:
-                game['class'].add_member(user_id=user_id)
-                vk.message_send(message="@id{user_id} ({name}), Вы в ИГРЕ!".format(user_id=user_id,
-                                                                                   name=StaticMethods.get_username(
-                                                                                       user_id)),
-                                peer_id=peer_id)
+                if game['class'].add_member(user_id=user_id):
+                    vk.message_send(message="@id{user_id} ({name}), Вы в ИГРЕ!".format(user_id=user_id,
+                                                                                       name=StaticMethods.get_username(
+                                                                                           user_id)),
+                                    peer_id=peer_id)
+                else:
+                    vk.message_send(
+                        message="@id{user_id} ({name}), увы.\nМест в игре не осталось.".format(user_id=user_id,
+                                                                                               name=StaticMethods.get_username(
+                                                                                                   user_id)),
+                        peer_id=peer_id)
+                    return

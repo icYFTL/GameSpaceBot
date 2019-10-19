@@ -14,7 +14,6 @@ class RussianRoulette:
         self.game_id = game_id
 
     def add_member(self, user_id):
-
         if len(self.members) < 5:
             balance = UserDB.getter(user_id)['balance']
             UserDB.balance_changer(user_id=user_id, static_value=0)
