@@ -58,10 +58,16 @@ class RussianRouletteInterface:
                 break
 
         if killed == None:
-            f"""Игра #{current_game['game_id']} завершена!\nНикто не был убит!\nЗагаданное число: {status}."""
+            end_message = f"""Игра #{current_game[
+                'game_id']} завершена!\nНикто не был убит!\nЗагаданное число: {status}."""
+            vk.message_send(
+                message=end_message, peer_id=peer_id)
+            LogWork.game_log(end_message, current_game['game_id'])
             RussianRouletteInterface.balance_recover(current_game)
+            return
 
-        end_message = f"""Игра #{current_game['game_id']} завершена!\n@id{killed} ({StaticMethods.get_username(
+        end_message = f"""Игра #{current_game['game_id']} завершена!\n@id{killed[
+            'user_id']} ({StaticMethods.get_username(
             killed['user_id'])}) был убит!\nЗагаданное число: {status}."""
 
         vk.message_send(
