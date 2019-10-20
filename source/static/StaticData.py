@@ -7,5 +7,5 @@ class StaticData:
     new_message_trigger = threading.Event()
 
     name = "GameSpaceBot"
-    version = "1.1 Release"
+    version = "1.2 Release"
     author = "icYFTL"

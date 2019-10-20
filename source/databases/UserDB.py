@@ -38,7 +38,6 @@ class UserDB:
     def change_time(user_id, time=None):
         data = UserDB.initialize()
         conn, cursor = data[0], data[1]
-        cb = UserDB.getter(user_id)['balance']
         time = StaticMethods.get_time().strftime('%D %T') if not time else time
         cursor.execute(f'UPDATE userdata SET time="{time}" WHERE user_id={user_id}')
         conn.commit()

@@ -12,12 +12,19 @@ class RussianRoulette:
         self.peer_id = peer_id
         self.members = []
         self.game_id = game_id
+        self.rand_list = None
+
+    def randomize(self):
+        if not self.rand_list:
+            self.rand_list = list(range(0, 6))
+            random.shuffle(self.rand_list)
+        return self.rand_list.pop()
 
     def add_member(self, user_id):
         if len(self.members) < 5:
             balance = UserDB.getter(user_id)['balance']
             UserDB.balance_changer(user_id=user_id, static_value=0)
-            self.members.append({'user_id': user_id, 'value': balance, 'number': len(self.members)})
+            self.members.append({'user_id': user_id, 'value': balance, 'number': self.randomize()})
             return True
         return False
 

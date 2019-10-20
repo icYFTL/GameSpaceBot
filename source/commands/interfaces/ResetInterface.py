@@ -40,3 +40,4 @@ class ResetInterface:
                 message="@id{user_id} ({username}), баланс успешно сброшен до 1000$.".format(
                     user_id=user_id, username=StaticMethods.get_username(user_id)),
                 peer_id=peer_id)
+            UserDB.change_time(user_id=user_id)
