@@ -104,35 +104,35 @@ class DoubleInterface:
     @staticmethod
     def pic_switcher(number):
         if number == 0:
-            return "doc239125937_511378630"
+            return "doc-184767539_520815133"
         elif number == 1:
-            return "doc239125937_511378656"
+            return "doc-184767539_520813629"
         elif number == 2:
-            return "doc239125937_511378667"
+            return "doc-184767539_520813804"
         elif number == 3:
-            return "doc239125937_511378671"
+            return "doc-184767539_520813917"
         elif number == 4:
-            return "doc239125937_511378674"
+            return "doc-184767539_520813985"
         elif number == 5:
-            return "doc239125937_511378678"
+            return "doc-184767539_520814069"
         elif number == 6:
-            return "doc239125937_511378682"
+            return "doc-184767539_520814298"
         elif number == 7:
-            return "doc239125937_511378686"
+            return "doc-184767539_520814869"
         elif number == 8:
-            return "doc239125937_511378689"
+            return "doc-184767539_520815081"
         elif number == 9:
-            return "doc239125937_511378695"
+            return "doc-184767539_520815085"
         elif number == 10:
-            return "doc239125937_511378702"
+            return "doc-184767539_520815092"
         elif number == 11:
-            return "doc239125937_511378715"
+            return "doc-184767539_520815102"
         elif number == 12:
-            return "doc239125937_511378720"
+            return "doc-184767539_520815108"
         elif number == 13:
-            return "doc239125937_511378723"
+            return "doc-184767539_520815115"
         elif number == 14:
-            return "doc239125937_511378728"
+            return "doc-184767539_520815121"
 
     @staticmethod
     def end_game(peer_id):
