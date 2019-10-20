@@ -23,10 +23,10 @@ class GameDB:
         return data[0]
 
     @staticmethod
-    def getter(peer_id):
+    def getter(id=None):
         data = GameDB.initialize()
         conn, cursor = data[0], data[1]
-        data = cursor.execute(f'SELECT * FROM games WHERE peer_id={peer_id}').fetchall()
+        data = cursor.execute(f'SELECT * FROM games WHERE id={id}').fetchall()
         data = list(data[0])
         return {'id': data[0], 'peer_id': data[1], 'game_type': data[2],
                 'game_status': data[3], 'data': data[4]}

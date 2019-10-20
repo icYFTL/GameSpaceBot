@@ -58,9 +58,14 @@ class DoubleInterface:
         LogWork.log("{user_id} trying to bet like {comma}".format(user_id=user_id, comma=comma))
         vk = BotAPI()
 
+        game_id = None
+        for game in StaticData.current_games:
+            if game['peer_id'] == peer_id:
+                game_id = game['game_id']
+
         comma = DoubleInterface.get_args_bet(comma)
 
-        if GameDB.getter(peer_id)['game_status'] != 'is going':
+        if GameDB.getter(game_id)['game_status'] != 'is going':
             vk.message_send(
                 message="@id{user_id} ({name}), ставить уже нельзя.".format(user_id=user_id,
                                                                             name=StaticMethods.get_username(
