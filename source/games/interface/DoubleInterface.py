@@ -149,6 +149,12 @@ class DoubleInterface:
 
         vk.message_send(attach=DoubleInterface.pic_switcher(status['number']), peer_id=peer_id)
 
+        for game in range(len(StaticData.current_games)):
+            if StaticData.current_games[game]['peer_id'] == peer_id:
+                del (StaticData.current_games[game])
+
+        GameDB.status_changer(current_game['game_id'], "ended")
+
         time.sleep(20)
 
         end_message = f"""Игра #{current_game['game_id']} завершена!\n{status['won']} победили!\nЗагаданное число: {
@@ -164,8 +170,4 @@ class DoubleInterface:
         if balances_changes:
             vk.message_send(message="Изменения балансов:\n" + '\n'.join(balances_changes), peer_id=peer_id)
 
-        for game in range(len(StaticData.current_games)):
-            if StaticData.current_games[game]['peer_id'] == peer_id:
-                del (StaticData.current_games[game])
 
-        GameDB.status_changer(current_game['game_id'], "ended")
