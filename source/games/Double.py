@@ -61,7 +61,7 @@ class Double:
             k = 1
             for user in self.bets:
                 changes = "+" if self.won(user['bet']) else "-"
-                changes += str(user['value'])
+                changes += str(user['value']) if self.number != 0 else str(user['value']) * 14
                 balances_changes.append(
                     "{counter}. @id{user_id} ({name}): {changes} [{bet}]".format(counter=k, user_id=user['user_id'],
                                                                                  changes=changes,

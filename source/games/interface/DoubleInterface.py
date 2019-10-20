@@ -19,10 +19,11 @@ class DoubleInterface:
                 vk.message_send(peer_id=peer_id, message="Игра уже началась!")
                 return
 
-        vk.message_send(message="Игра началась.\nВ течении 60 секунд вы можете ставить.\nПример:(/bet 100 z)",
+        game_id = GameDB.add_game('double', peer_id)
+
+        vk.message_send(message=f"Игра #{game_id} началась.\nВ течении 60 секунд вы можете ставить.\nПример:(/bet 100 z)",
                         peer_id=peer_id)
 
-        game_id = GameDB.add_game('double', peer_id)
         game = Double(peer_id, game_id)
 
         StaticData.current_games.append(
