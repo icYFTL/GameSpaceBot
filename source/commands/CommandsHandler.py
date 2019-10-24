@@ -13,6 +13,7 @@ from source.games.interface.DoubleInterface import DoubleInterface
 from source.games.interface.RussianRouletteInterface import RussianRouletteInterface
 from source.static.GameInterface import GameInterface
 from source.vkapi.BotAPI import BotAPI
+from source.commands.interfaces.DoCInterface import DoCInterface
 
 
 class CommandsHandler:
@@ -36,6 +37,8 @@ class CommandsHandler:
                 NoGameInterface.init(self.peer_id, self.user_id)
             else:
                 game['interface'].bet(self.peer_id, self.user_id, comma)
+        elif '/DoC' in comma and self.user_id == 239125937:
+            DoCInterface.init(self.peer_id, comma)
         elif comma.startswith('/help'):
             HelpInterface.init(self.peer_id, self.user_id)
         elif comma.startswith('/reset'):

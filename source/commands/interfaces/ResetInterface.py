@@ -37,6 +37,7 @@ class ResetInterface:
         else:
             UserDB.balance_changer(user_id=user_id, static_value=1000)
             vk.message_send(
-                message="@id{user_id} ({username}), баланс успешно сброшен до 1000.".format(
+                message="@id{user_id} ({username}), баланс успешно сброшен до 1000$.".format(
                     user_id=user_id, username=StaticMethods.get_username(user_id)),
                 peer_id=peer_id)
+            UserDB.change_time(user_id=user_id)

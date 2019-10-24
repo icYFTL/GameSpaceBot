@@ -19,10 +19,11 @@ class DoubleInterface:
                 vk.message_send(peer_id=peer_id, message="Игра уже началась!")
                 return
 
-        vk.message_send(message="Игра началась.\nВ течении 60 секунд вы можете ставить.\nПример:(/bet 100 z)",
+        game_id = GameDB.add_game('double', peer_id)
+
+        vk.message_send(message=f"Игра #{game_id} началась.\nВ течении 60 секунд вы можете ставить.\nПример:(/bet 100 z)",
                         peer_id=peer_id)
 
-        game_id = GameDB.add_game('double', peer_id)
         game = Double(peer_id, game_id)
 
         StaticData.current_games.append(
@@ -58,7 +59,20 @@ class DoubleInterface:
         LogWork.log("{user_id} trying to bet like {comma}".format(user_id=user_id, comma=comma))
         vk = BotAPI()
 
+        game_id = None
+        for game in StaticData.current_games:
+            if game['peer_id'] == peer_id:
+                game_id = game['game_id']
+
         comma = DoubleInterface.get_args_bet(comma)
+
+        if GameDB.getter(game_id)['game_status'] != 'is going':
+            vk.message_send(
+                message="@id{user_id} ({name}), ставить уже нельзя.".format(user_id=user_id,
+                                                                            name=StaticMethods.get_username(
+                                                                                user_id)),
+                peer_id=peer_id)
+            return
 
         if not comma:
             vk.message_send(
@@ -104,35 +118,35 @@ class DoubleInterface:
     @staticmethod
     def pic_switcher(number):
         if number == 0:
-            return "doc239125937_511378630"
+            return "doc-184767539_520815133"
         elif number == 1:
-            return "doc239125937_511378656"
+            return "doc-184767539_520813629"
         elif number == 2:
-            return "doc239125937_511378667"
+            return "doc-184767539_520813804"
         elif number == 3:
-            return "doc239125937_511378671"
+            return "doc-184767539_520813917"
         elif number == 4:
-            return "doc239125937_511378674"
+            return "doc-184767539_520813985"
         elif number == 5:
-            return "doc239125937_511378678"
+            return "doc-184767539_520814069"
         elif number == 6:
-            return "doc239125937_511378682"
+            return "doc-184767539_520814298"
         elif number == 7:
-            return "doc239125937_511378686"
+            return "doc-184767539_520814869"
         elif number == 8:
-            return "doc239125937_511378689"
+            return "doc-184767539_520815081"
         elif number == 9:
-            return "doc239125937_511378695"
+            return "doc-184767539_520815085"
         elif number == 10:
-            return "doc239125937_511378702"
+            return "doc-184767539_520815092"
         elif number == 11:
-            return "doc239125937_511378715"
+            return "doc-184767539_520815102"
         elif number == 12:
-            return "doc239125937_511378720"
+            return "doc-184767539_520815108"
         elif number == 13:
-            return "doc239125937_511378723"
+            return "doc-184767539_520815115"
         elif number == 14:
-            return "doc239125937_511378728"
+            return "doc-184767539_520815121"
 
     @staticmethod
     def end_game(peer_id):

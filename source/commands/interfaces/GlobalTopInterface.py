@@ -14,7 +14,7 @@ class GlobalTopInterface:
             for balance in data:
                 top_balances.append({'user_id': balance[0], 'balance': str(balance[1]) + '$'})
 
-            out = ""
+            out = "👑"
             k = 1
             done = False
             for user in top_balances:
@@ -30,6 +30,7 @@ class GlobalTopInterface:
                     break
                 if user['user_id'] == user_id:
                     done = True
+
                 out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=k, user_id=user['user_id'],
                                                                                    username=StaticMethods.get_username(
                                                                                        user['user_id']),
