@@ -20,11 +20,11 @@ class GlobalTopInterface:
             for user in top_balances:
                 if k == 6 and not done:
                     out += "...\n"
-                    out += "{counter}. @id{user_id} ({username}) - {balance}\n".format(counter=current_user[0],
-                                                                                       user_id=user_id,
-                                                                                       username=StaticMethods.get_username(
-                                                                                           user_id),
-                                                                                       balance=current_user[1])
+                    out += "{counter}. @id{user_id} ({username}) - {balance}$\n".format(counter=current_user[0],
+                                                                                        user_id=user_id,
+                                                                                        username=StaticMethods.get_username(
+                                                                                            user_id),
+                                                                                        balance=current_user[1])
                     break
                 elif k == 6:
                     break
