@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 
+from source.databases.UserDB import UserDB
+
 app = Flask(__name__, template_folder="./templates")
 
 
@@ -10,5 +12,6 @@ def get_r():
 
 @app.route("/gsb", methods=['POST'])
 def calculate():
-    print(request.data)
+    user_id = request.args['user_id']
+    UserDB.balance_changer(user_id=user_id, value=1)
     return 'ok'

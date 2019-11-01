@@ -9,22 +9,16 @@
             $.ajax(
                 {
                     type: "POST",
-                    dataType: "html",
+                    dataType: "json",
+                    contentType: "application/json",
+
                     data:
-                        {
-                            count: '1'
-                        },
-                    url: "https://icyftl.ru/gsb"
+                        JSON.stringify(
+                            {
+                                count: '1'
+                            }),
+                    url: "/gsb"
                 })
-                .done(function (response) {
-                    $('#message').html(response);
-                    emailChecked = true;
-                    $('form[name=register]').submit();
-                })
-                .fail(function () {
-                    $('#message').html("Something went wrong!");
-                });
-            return false;
         }
 
     </script>
