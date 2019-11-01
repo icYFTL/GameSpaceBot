@@ -13,6 +13,3 @@ def calculate():
     if request.data:
         print(request.data)
     return 'ok'
-
-
-app.run('localhost', 8000)
