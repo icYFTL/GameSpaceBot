@@ -10,6 +10,5 @@ def get_r():
 
 @app.route("/gsb", methods=['POST'])
 def calculate():
-    if request.data:
-        print(request.data)
+    print(request.data)
     return 'ok'
