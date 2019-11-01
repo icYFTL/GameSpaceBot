@@ -10,5 +10,9 @@ def get_r():
 
 @app.route("/gsb", methods=['POST'])
 def calculate():
-    print(request.data)
+    if request.data:
+        print(request.data)
     return 'ok'
+
+
+app.run('localhost', 8000)
